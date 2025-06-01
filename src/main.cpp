@@ -15,13 +15,14 @@ void mostrarMenu() {
     cout << left << setw(30) << "4. Consultar vuelo" << right << setw(10) << "" << endl;
     cout << left << setw(30) << "5. Listar todos los vuelos activos" << right << setw(10) << "" << endl;
     cout << left << setw(30) << "6. Guardar todos los datos en un archivo" << right << setw(10) << "" << endl;
+    cout << left << setw(30) << "7. Cargar datos desde archivo" << right << setw(10) << "" << endl;
     cout << left << setw(30) << "8. Salir" << right << setw(10) << "" << endl;
     cout << setw(40) << setfill('-') << "" << endl; // Línea decorativa final
-    cout << "Seleccione una opcion: ";
+    cout << "Seleccione una opción: ";
 }
 
 int main() {
-    vector<Vuelo> listaVuelos; // Lista que almacena la informacion de todos los vuelos
+    vector<Vuelo> listaVuelos; // Lista que almacena la información de todos los vuelos
     string nombreArchivo = "data/vuelos.txt"; // Ruta del archivo de texto
 
     // Cargar datos desde el archivo al iniciar el programa
@@ -34,7 +35,7 @@ int main() {
         cin.ignore();
 
         switch (opcion) {
-            case 1: 
+            case 1:
                 agregarVuelo(listaVuelos);
                 break;
             case 2:
@@ -50,22 +51,21 @@ int main() {
                 listarVuelos(listaVuelos);
                 break;
             case 6:
-                guardarVuelos(listaVuelos , nombreArchivo);
+                guardarVuelos(listaVuelos, nombreArchivo);
                 break;
             case 7:
                 listaVuelos = cargarVuelos(nombreArchivo);
                 break;
-            case 8: 
-                cout << "Saliendo del programa... \n";
+            case 8:
+                cout << "Saliendo del programa...\n";
                 break;
-            default :
-                cout << "Opcion no valida. Intente de nuevo\n";
+            default:
+                cout << "Opción no válida. Intente de nuevo\n";
         }
     } while (opcion != 8);
 
-    // Guardar datos automaticamente al salir
+    // Guardar datos automáticamente al salir
     guardarVuelos(listaVuelos, nombreArchivo);
 
     return 0;
-
 }
