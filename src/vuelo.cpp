@@ -112,17 +112,17 @@ void agregarVuelo(vector<Vuelo>& lista) {
     string codigo, origen, destino, horaSalida, horaLlegada, tipoAvion;
     int capacidad;
 
-    cout << "Ingrese código del vuelo: ";
+    cout << "Ingrese codigo del vuelo: ";
     cin >> codigo;
 
     // Validación: evitar duplicados
     for (auto v : lista) {
         if (v.getCodigo() == codigo && v.estaActivo()) {
-            cout << "Error: Ya existe un vuelo con ese código.\n";
+            cout << "Error: Ya existe un vuelo con ese codigo.\n";
             return;
         }
     }
-
+    // Solicitar detalles del vuelo
     cout << "Origen: ";
     cin.ignore();
     getline(cin, origen);
@@ -136,10 +136,10 @@ void agregarVuelo(vector<Vuelo>& lista) {
     cout << "Hora de llegada (HH:MM): ";
     getline(cin, horaLlegada);
 
-    cout << "Capacidad del avión: ";
+    cout << "Capacidad del avion: ";
     cin >> capacidad;
 
-    cout << "Tipo de avión: ";
+    cout << "Tipo de avion: ";
     cin.ignore();
     getline(cin, tipoAvion);
 
@@ -158,6 +158,7 @@ void editarVuelo(vector<Vuelo>& lista) {
         if(lista[i].getCodigo() == codigo && lista[i].estaActivo()) {
             int opcion;
             do {
+                // submenu para editar los detalles del vuelo
                 cout << "\n Editar un vuelo \n";
                 cout << "1. Origen: \n";
                 cout << "2. Destino: \n";
@@ -234,8 +235,9 @@ void eliminarLogicoVuelo(vector<Vuelo>& lista) {
     string codigo;
     cout << "Ingrese el codigo del vuelo a eliminar: ";
     cin >> codigo;
-
+    // size es una funcion que nos devuelve el tamaño del vector
     for (int i = 0 ; i < lista.size(); i++) {
+        // Verificar si el codigo coincide y si el vuelo esta activo
         if(lista[i].getCodigo() == codigo && lista[i].estaActivo()) {
             char confirmacion;
             cout << "Esta seguro de eliminar este vuelo? (S/N): ";
@@ -260,9 +262,10 @@ void consultarVuelo(vector<Vuelo>& lista) {
     string codigo;
     cout << "Ingrese el codigo del vuelo a consultar: ";
     cin >> codigo;
-
+    // Iterar sobre la lista de vuelos
     for (auto v : lista) {
-        if (v.getCodigo() == codigo && v.estaActivo()) {
+        // Verificar si el codigo coincide y si el vuelo esta activo
+        if (v.getCodigo() == codigo && v.estaActivo()) { 
             v.mostrar();
             return;
         }
@@ -275,13 +278,13 @@ void consultarVuelo(vector<Vuelo>& lista) {
 void listarVuelos(const vector<Vuelo>& lista) {
     cout << "\n Listado de vuelos activos \n";
 
-    bool hayActivos = false;
-
+    bool hayActivos = false; // Bandera para verificar si hay vuelos activos
+    // Iterar sobre la lista de vuelos
     for (auto v: lista) {
         if (v.estaActivo()) {
-            v.mostrar();
+            v.mostrar(); // Muestra los detalles del vuelo
             cout << "----------------------\n";
-            hayActivos = true;
+            hayActivos = true; // Cambia la bandera si hay al menos un vuelo activo
         }
     }
 
@@ -298,7 +301,7 @@ void guardarVuelos(const vector<Vuelo>& lista, const string& nombreArchivo) {
         cout << " Error al abrir el archivo para guardar.\n";
         return;
     }
-
+    // Escribir los datos de cada vuelo activo en el archivo
     for (const auto& v : lista) {
         if (v.estaActivo()) {
             archivo << v.getCodigo() << "\n"
@@ -318,19 +321,19 @@ void guardarVuelos(const vector<Vuelo>& lista, const string& nombreArchivo) {
 
 // Cargar vuelos desde archivo de texto
 vector<Vuelo> cargarVuelos(const string& nombreArchivo) {
-    vector<Vuelo> lista;
-    ifstream archivo(nombreArchivo);
+    vector<Vuelo> lista; // Lista para almacenar los vuelos cargados
+    ifstream archivo(nombreArchivo); /// Abrir el archivo en modo lectura
 
     if (!archivo.is_open()) {
-        cout << " Archivo no encontrado. Iniciando con lista vacía.\n";
+        cout << " Archivo no encontrado. Iniciando con lista vacia.\n";
         return lista;
     }
-
+    // Variables para almacenar los datos de cada vuelo
     string codigo, origen, destino, horaSalida, horaLlegada, tipoAvion;
     int capacidad;
     string estadoStr;
     bool activo;
-
+    // Leer cada vuelo del archivo
     while (getline(archivo, codigo)) {
         getline(archivo, origen);
         getline(archivo, destino);
@@ -339,16 +342,18 @@ vector<Vuelo> cargarVuelos(const string& nombreArchivo) {
         archivo >> capacidad;
         archivo.ignore();  // Saltar el salto de línea
         getline(archivo, tipoAvion);
-        archivo >> estadoStr;
+        archivo >> estadoStr; // Leer el estado del vuelo (1 para activo, 0 para inactivo)
         archivo.ignore();
 
+        // Crear un nuevo objeto Vuelo y agregarlo a la lista
         Vuelo nuevo(codigo, origen, destino, horaSalida, horaLlegada, capacidad, tipoAvion);
         activo = (estadoStr == "1");
         if (!activo) {
-            nuevo.desactivar();
+            nuevo.desactivar(); // Desactivar el vuelo si el estado es 0
         }
 
-        lista.push_back(nuevo);
+        // metodo que viene de la clase vector para agregar un nuevo elemento
+        lista.push_back(nuevo); 
     }
 
     archivo.close();

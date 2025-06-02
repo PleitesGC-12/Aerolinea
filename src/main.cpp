@@ -3,7 +3,7 @@
 #include <vector>
 #include <iomanip>
 using namespace std;
-
+// menu general del programa
 void mostrarMenu() {
     cout << endl;
     cout << setw(40) << setfill('=') << "" << endl;
@@ -18,7 +18,7 @@ void mostrarMenu() {
     cout << left << setw(30) << "7. Cargar datos desde archivo" << right << setw(10) << "" << endl;
     cout << left << setw(30) << "8. Salir" << right << setw(10) << "" << endl;
     cout << setw(40) << setfill('-') << "" << endl; // Línea decorativa final
-    cout << "Seleccione una opción: ";
+    cout << "Seleccione una opcion: ";
 }
 
 int main() {
@@ -60,7 +60,7 @@ int main() {
                 cout << "Saliendo del programa...\n";
                 break;
             default:
-                cout << "Opción no válida. Intente de nuevo\n";
+                cout << "Opcion no valida. Intente de nuevo\n";
         }
     } while (opcion != 8);
 
