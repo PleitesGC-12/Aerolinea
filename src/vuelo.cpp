@@ -250,7 +250,6 @@ void eliminarLogicoVuelo(vector<Vuelo>& lista) {
                 cout << "Accion cancelada \n";
             }
         }
-        return;
     }
     cout << "Vuelo no encontrado o ya esta inactivo \n";
 }

@@ -1,3 +1,0 @@
-1111|Santa Ana|Paris|5:00|13:00|20|Comercial|1
-2222|Arabia|Siria|19:10|00:00|5|Privado|1
-Berlin'|Berlin|Moscu|10:00|19:00|15|Jet|1
