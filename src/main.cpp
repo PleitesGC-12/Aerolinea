@@ -13,7 +13,7 @@ void mostrarMenu() {
     cout << left << setw(30) << "2. Editar vuelo" << right << setw(10) << "" << endl;
     cout << left << setw(30) << "3. Eliminar vuelo" << right << setw(10) << "" << endl;
     cout << left << setw(30) << "4. Consultar vuelo" << right << setw(10) << "" << endl;
-    cout << left << setw(30) << "5. Listar todos los vuelos activos" << right << setw(10) << "" << endl;
+    cout << left << setw(30) << "5. Listar todos los vuelos (activos e inactivos)" << right << setw(10) << "" << endl;
     cout << left << setw(30) << "6. Guardar todos los datos en un archivo" << right << setw(10) << "" << endl;
     cout << left << setw(30) << "7. Cargar datos desde archivo" << right << setw(10) << "" << endl;
     cout << left << setw(30) << "8. Salir" << right << setw(10) << "" << endl;

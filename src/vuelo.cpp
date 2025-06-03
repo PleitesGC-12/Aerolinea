@@ -163,7 +163,7 @@ void editarVuelo(vector<Vuelo>& lista) {
                 cout << "1. Origen: \n";
                 cout << "2. Destino: \n";
                 cout << "3. Hora de Salida: \n";
-                cout << "4. Hora de salida: \n";
+                cout << "4. Hora de Llegada: \n";
                 cout << "5. Capacidad: \n";
                 cout << "6. Tipo de avion: \n";
                 cout << "7. Finalizar edicion\n ";
@@ -235,23 +235,32 @@ void eliminarLogicoVuelo(vector<Vuelo>& lista) {
     string codigo;
     cout << "Ingrese el codigo del vuelo a eliminar: ";
     cin >> codigo;
-    // size es una funcion que nos devuelve el tamaño del vector
-    for (int i = 0 ; i < lista.size(); i++) {
-        // Verificar si el codigo coincide y si el vuelo esta activo
-        if(lista[i].getCodigo() == codigo && lista[i].estaActivo()) {
+
+    bool encontrado = false; // Bandera para verificar si se encontró el vuelo
+
+    for (int i = 0; i < lista.size(); i++) {
+        if (lista[i].getCodigo() == codigo && lista[i].estaActivo()) {
             char confirmacion;
-            cout << "Esta seguro de eliminar este vuelo? (S/N): ";
+            cout << " Esta seguro de eliminar este vuelo? (S/N): ";
             cin >> confirmacion;
-            
-            if(confirmacion == 'S' || confirmacion == 's') {
+
+            if (confirmacion == 'S' || confirmacion == 's') {
                 lista[i].desactivar();
-                cout << "Vuelo marcado como inactivo. \n";
+                cout << "Vuelo marcado como inactivo.\n";
+                encontrado = true; // Marcar que el vuelo fue encontrado
+                break; // Salir del bucle una vez procesado el vuelo
             } else {
-                cout << "Accion cancelada \n";
+                cout << "Accion cancelada.\n";
+                encontrado = true; // Marcar que el vuelo fue encontrado
+                break; // Salir del bucle
             }
         }
     }
-    cout << "Vuelo no encontrado o ya esta inactivo \n";
+
+    // Mostrar mensaje solo si el vuelo no fue encontrado
+    if (!encontrado) {
+        cout << "Vuelo no encontrado o ya esta inactivo.\n";
+    }
 }
 
 
@@ -274,44 +283,41 @@ void consultarVuelo(vector<Vuelo>& lista) {
 }
 
 // Listar todos los vuelos activos
-void listarVuelos(const vector<Vuelo>& lista) {
-    cout << "\n Listado de vuelos activos \n";
+void listarVuelos(vector<Vuelo>& lista) {
+    cout << "\nListado de todos los vuelos (activos e inactivos):\n";
+    bool hayVuelos = false;
 
-    bool hayActivos = false; // Bandera para verificar si hay vuelos activos
-    // Iterar sobre la lista de vuelos
-    for (auto v: lista) {
-        if (v.estaActivo()) {
-            v.mostrar(); // Muestra los detalles del vuelo
-            cout << "----------------------\n";
-            hayActivos = true; // Cambia la bandera si hay al menos un vuelo activo
-        }
+    for (auto& v : lista) {
+        v.mostrar(); 
+        cout << "----------------------\n";
+        hayVuelos = true;
     }
 
-    if (!hayActivos) {
-        cout << "No hay vuelos activos \n";
+    if (!hayVuelos) {
+        cout << "No hay vuelos registrados.\n";
     }
 }
 
 
 // Guardar vuelos en archivo de texto
+// Estos cambios no estan cargados en github
 void guardarVuelos(const vector<Vuelo>& lista, const string& nombreArchivo) {
     ofstream archivo(nombreArchivo);
     if (!archivo.is_open()) {
-        cout << " Error al abrir el archivo para guardar.\n";
+        cout << "Error al abrir el archivo para guardar.\n";
         return;
     }
-    // Escribir los datos de cada vuelo activo en el archivo
+
     for (const auto& v : lista) {
-        if (v.estaActivo()) {
-            archivo << v.getCodigo() << "\n"
-                    << v.getOrigen() << "\n"
-                    << v.getDestino() << "\n"
-                    << v.getHoraSalida() << "\n"
-                    << v.getHoraLlegada() << "\n"
-                    << v.getCapacidad() << "\n"
-                    << v.getTipoAvion() << "\n"
-                    << (v.estaActivo() ? "1\n" : "0\n");
-        }
+        // Guardar todos los vuelos, activos e inactivos
+        archivo << v.getCodigo() << "\n"
+                << v.getOrigen() << "\n"
+                << v.getDestino() << "\n"
+                << v.getHoraSalida() << "\n"
+                << v.getHoraLlegada() << "\n"
+                << v.getCapacidad() << "\n"
+                << v.getTipoAvion() << "\n"
+                << (v.estaActivo() ? "1\n" : "0\n");
     }
 
     archivo.close();

@@ -51,7 +51,7 @@ void agregarVuelo(vector<Vuelo>& lista);
 void editarVuelo(vector<Vuelo>& lista);
 void eliminarLogicoVuelo(vector<Vuelo>& lista);
 void consultarVuelo(vector<Vuelo>& lista);
-void listarVuelos(const vector<Vuelo>& lista);
+void listarVuelos(vector<Vuelo>& lista);
 
 // Guardara los vuelos en el archivo binario
 void guardarVuelos(const vector<Vuelo>& lista, const string& nombreArchivo);
