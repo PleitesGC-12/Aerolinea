@@ -1,56 +1,16 @@
 1111
+Queens
 San Salvador
-Groenlandia
-13:00
-3:00
-5
+12:00
+00:00
+12
 Comercial
 0
 2222
-Nueva Zelanda
-Paises Bajos
-13:20
-8:20
-25
+Sydney
+San Francisco
+12:00
+1:00
+20
 Comercial
-0
-3333
-San Salvador
-Milan
-9:00
-15:00
-2
-Privado
 1
-4444
-San Salvador
-Estocolmo
-12:00
-16:30
-1
-Privado
-0
-5555
-San Salvador
-Helsinki
-10:00
-13:00
-1
-Privado
-0
-6666
-Atenas
-Triangulo Bermudas
-00:00
-12:00
-2
-Clasificado
-0
-7777
-San Salvador
-Madrid
-12:00
-00:00
-30
-Comercial
-0

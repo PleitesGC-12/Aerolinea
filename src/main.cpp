@@ -26,7 +26,7 @@ int main() {
     string nombreArchivo = "data/vuelos.txt"; // Ruta del archivo de texto
 
     // Cargar datos desde el archivo al iniciar el programa
-    listaVuelos = cargarVuelos(nombreArchivo);
+   // listaVuelos = cargarVuelos(nombreArchivo);
 
     int opcion;
     do {
