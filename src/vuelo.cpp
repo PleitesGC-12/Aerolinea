@@ -310,13 +310,13 @@ void guardarVuelos(const vector<Vuelo>& lista, const string& nombreArchivo) {
 
     for (const auto& v : lista) {
         // Guardar todos los vuelos, activos e inactivos
-        archivo << v.getCodigo() << "\n"
-                << v.getOrigen() << "\n"
-                << v.getDestino() << "\n"
-                << v.getHoraSalida() << "\n"
-                << v.getHoraLlegada() << "\n"
-                << v.getCapacidad() << "\n"
-                << v.getTipoAvion() << "\n"
+        archivo << v.getCodigo() << "|"
+                << v.getOrigen() << "|"
+                << v.getDestino() << "|"
+                << v.getHoraSalida() << "|"
+                << v.getHoraLlegada() << "|"
+                << v.getCapacidad() << "|"
+                << v.getTipoAvion() << "|"
                 << (v.estaActivo() ? "1\n" : "0\n");
     }
 
@@ -326,39 +326,36 @@ void guardarVuelos(const vector<Vuelo>& lista, const string& nombreArchivo) {
 
 // Cargar vuelos desde archivo de texto
 vector<Vuelo> cargarVuelos(const string& nombreArchivo) {
-    vector<Vuelo> lista; // Lista para almacenar los vuelos cargados
-    ifstream archivo(nombreArchivo); /// Abrir el archivo en modo lectura
+    vector<Vuelo> lista;
+    ifstream archivo(nombreArchivo);
 
     if (!archivo.is_open()) {
         cout << " Archivo no encontrado. Iniciando con lista vacia.\n";
         return lista;
     }
-    // Variables para almacenar los datos de cada vuelo
-    string codigo, origen, destino, horaSalida, horaLlegada, tipoAvion;
-    int capacidad;
-    string estadoStr;
-    bool activo;
-    // Leer cada vuelo del archivo
-    while (getline(archivo, codigo)) {
-        getline(archivo, origen);
-        getline(archivo, destino);
-        getline(archivo, horaSalida);
-        getline(archivo, horaLlegada);
-        archivo >> capacidad;
-        archivo.ignore();  // Saltar el salto de línea
-        getline(archivo, tipoAvion);
-        archivo >> estadoStr; // Leer el estado del vuelo (1 para activo, 0 para inactivo)
-        archivo.ignore();
 
-        // Crear un nuevo objeto Vuelo y agregarlo a la lista
-        Vuelo nuevo(codigo, origen, destino, horaSalida, horaLlegada, capacidad, tipoAvion);
-        activo = (estadoStr == "1");
+    string linea;
+    while (getline(archivo, linea)) {
+        // Dividir la línea usando el delimitador '|'
+        size_t pos = 0;
+        string token;
+        vector<string> datos;
+
+        while ((pos = linea.find('|')) != string::npos) {
+            token = linea.substr(0, pos);
+            datos.push_back(token);
+            linea.erase(0, pos + 1);
+        }
+        datos.push_back(linea); // Agregar el último dato (estado)
+
+        // Crear un objeto Vuelo con los datos leídos
+        Vuelo nuevo(datos[0], datos[1], datos[2], datos[3], datos[4], stoi(datos[5]), datos[6]);
+        bool activo = (datos[7] == "1");
         if (!activo) {
-            nuevo.desactivar(); // Desactivar el vuelo si el estado es 0
+            nuevo.desactivar();
         }
 
-        // metodo que viene de la clase vector para agregar un nuevo elemento
-        lista.push_back(nuevo); 
+        lista.push_back(nuevo);
     }
 
     archivo.close();

@@ -1,16 +1,3 @@
-1111
-Queens
-San Salvador
-12:00
-00:00
-12
-Comercial
-0
-2222
-Sydney
-San Francisco
-12:00
-1:00
-20
-Comercial
-1
+1111|Minsk|San Salvador|12:00|7:00|30|Comercial|1
+2222|Kiev|Viena|00:00|23:30|30|Comercial|1
+Ankara|China|El Salvador|19:00|13:00|20|Comercial|0
